@@ -1,0 +1,90 @@
+# YouTube Video Recommendation System Configuration
+
+# Model Configuration
+model:
+  # Matrix Factorization
+  matrix_factorization:
+    n_factors: 50
+    n_iterations: 20
+    regularization: 0.01
+    learning_rate: 0.01
+
+  # Item-based Collaborative Filtering
+  item_cf:
+    k_neighbors: 50
+
+  # Content-Based Filtering
+  content_based:
+    max_features: 1000
+    min_df: 2
+    category_weight: 0.3
+    text_weight: 0.5
+    tag_weight: 0.2
+
+  # Trending
+  trending:
+    time_decay_hours: 24.0
+    min_views: 1000
+
+# Algorithm Weights
+weights:
+  collaborative_mf: 0.30
+  collaborative_item: 0.20
+  content_based: 0.25
+  trending: 0.15
+  new_uploads: 0.10
+
+# Recommendation Settings
+recommendation:
+  default_count: 20
+  max_count: 100
+  candidate_multiplier: 5  # Fetch 5x candidates before ranking
+  cache_ttl_seconds: 300   # 5 minutes
+  diversity_factor: 0.3
+  exploration_rate: 0.15
+
+# API Settings
+api:
+  host: "0.0.0.0"
+  port: 5000
+  debug: false
+  workers: 4
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/recommendation.log"
+
+# Database (placeholder for future implementation)
+database:
+  type: "postgresql"
+  host: "localhost"
+  port: 5432
+  name: "youtube_recommendations"
+
+# Redis Cache
+cache:
+  host: "localhost"
+  port: 6379
+  db: 0
+
+# Training
+training:
+  batch_size: 1024
+  validation_split: 0.2
+  test_split: 0.1
+  min_interactions_per_user: 5
+  min_interactions_per_item: 5
+
+# Evaluation
+evaluation:
+  k_values: [5, 10, 20, 50]
+  metrics:
+    - precision
+    - recall
+    - ndcg
+    - map
+    - mrr
+    - diversity
+    - coverage
